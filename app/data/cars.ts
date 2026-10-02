@@ -52,7 +52,7 @@ const baseCars: BaseCarData[] = [
   {
   id: 'mercedes-c-class-220-2015',
   name: 'Mercedes-Benz C-Class 220 2015',
-  image: '/cars/c.png',
+  image: '/cars/c1.webp',
   price: 45,
   passengers: 5,
   specs: {
