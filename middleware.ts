@@ -15,7 +15,13 @@ export function middleware(request: NextRequest) {
 
   const localeSegment = pathname.split("/")[1];
   if (localeSegment && isValidLocale(localeSegment)) {
-    return NextResponse.next();
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-locale", localeSegment);
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
   }
 
   const url = request.nextUrl.clone();

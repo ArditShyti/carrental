@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
+import { defaultLocale, isValidLocale } from "./i18n/config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -67,14 +69,14 @@ export const metadata: Metadata = {
   category: "transportation",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params?: { locale?: string };
 }) {
-  const locale = params?.locale ?? "en";
+  const localeHeader = (await headers()).get("x-locale");
+  const locale =
+    localeHeader && isValidLocale(localeHeader) ? localeHeader : defaultLocale;
 
   return (
     <html lang={locale}
