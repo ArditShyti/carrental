@@ -53,9 +53,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/next.svg",
-        width: 800,
-        height: 480,
+        url: "/nextlogo.png",
+        width: 640,
+        height: 360,
+        alt: "NextRental - Premium Car Rental",
       },
     ],
   },
@@ -64,7 +65,7 @@ export const metadata: Metadata = {
     title: "NextRental - Premium Car Rental Albania",
     description:
       "Rent premium cars in Tirana and Albania with fast booking and 24/7 support.",
-    images: ["/next.svg"],
+    images: ["/nextlogo.png"],
   },
   category: "transportation",
 };
@@ -92,14 +93,27 @@ export default async function RootLayout({
               "@type": "CarRental",
               name: "NextRental",
               url: "https://nextrentaltirana.com",
+              image: "https://nextrentaltirana.com/nextlogo.png",
+              logo: "https://nextrentaltirana.com/nextlogo.png",
               telephone: "+355 68 825 6727",
-              email:"arditshyti05@gmail.com",
+              email: "arditshyti05@gmail.com",
               address: {
                 "@type": "PostalAddress",
+                streetAddress: "Rr. Jordan Misja",
                 addressLocality: "Tirana",
-                addressCountry: "Albania",
+                addressCountry: "AL",
               },
-              priceRange: "20€ - 300€ / day",
+              areaServed: {
+                "@type": "Country",
+                name: "Albania",
+              },
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+355 68 825 6727",
+                email: "arditshyti05@gmail.com",
+                contactType: "customer service",
+              },
+              priceRange: "$30-$45 per day",
             }),
           }}
         />

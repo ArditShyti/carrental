@@ -1,7 +1,11 @@
 import ReservationPage from "@/app/components/reservationClient";
 import type { Metadata } from "next";
 import { getCarById } from "../../../data/cars";
-import { defaultLocale, isValidLocale } from "../../../i18n/config";
+import {
+  defaultLocale,
+  isValidLocale,
+  locales,
+} from "../../../i18n/config";
 
 type Params = {
   locale: string;
@@ -19,30 +23,51 @@ export async function generateMetadata({
 
   if (!car) {
     return {
-      title: "Car Not Found | NextRental",
+      title: "Car Not Found",
       description: "This car is not available.",
     };
   }
 
+  const titleByLocale = {
+    en: `Rent ${car.name} in Albania`,
+    sq: `${car.name} me qira në Shqipëri`,
+    it: `Noleggio ${car.name} in Albania`,
+    de: `${car.name} in Albanien mieten`,
+  };
+  const descriptionByLocale = {
+    en: `${car.description.slice(0, 150)} Rent cars in Albania with transparent pricing.`,
+    sq: `Merrni me qira ${car.name} në Shqipëri. ${car.description.slice(0, 120)}`,
+    it: `Noleggia ${car.name} in Albania. ${car.description.slice(0, 120)}`,
+    de: `Mieten Sie den ${car.name} in Albanien. ${car.description.slice(0, 120)}`,
+  };
+  const pageTitle = titleByLocale[resolvedLocale];
+
   return {
-    title: `Rent ${car.name} in Albania | NextRental`,
-    description: `${car.description.slice(0, 150)} Rent luxury cars in Albania with best prices.`,
+    title: pageTitle,
+    description: descriptionByLocale[resolvedLocale],
     openGraph: {
-      title: `Rent ${car.name} in Albania`,
+      title: pageTitle,
       description: car.description,
-      url: `https://nextrentaltirana.com/${locale}/reservation/${car.id}`,
+      url: `https://nextrentaltirana.com/${resolvedLocale}/reservation/${car.id}`,
       images: [
         {
           url: car.image,
-          width: 1200,
-          height: 630,
           alt: car.name,
         },
       ],
       type: "website",
     },
     alternates: {
-      canonical: `/${locale}/reservation/${car.id}`,
+      canonical: `/${resolvedLocale}/reservation/${car.id}`,
+      languages: Object.fromEntries(
+        [
+          ...locales.map((alternateLocale) => [
+            alternateLocale,
+            `/${alternateLocale}/reservation/${car.id}`,
+          ]),
+          ["x-default", `/en/reservation/${car.id}`],
+        ],
+      ),
     },
   };
 }
