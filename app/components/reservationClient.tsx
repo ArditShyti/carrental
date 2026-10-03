@@ -99,75 +99,72 @@ export default function ReservationPage() {
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
-
     setLoading(true);
 
-    const days = calculateDays(formData.pickupDate, formData.returnDate);
-    const total = days * car.price;
-  try{
-    const templateParams = {
-      fullName: formData.fullName,
-      email: formData.email,
-      phone: formData.phone,
-  
-      carName: car.name,
-      carPrice: car.price,
-      carImage: car.image,
-  
-      driverLicense:formData.driverLicense,
-      pickupLocation: formData.pickupLocation,
-      pickupDate: formData.pickupDate,
-      returnDate: formData.returnDate,
-  
-      days,
-      totalPrice: total,
-  
-      specialRequests: formData.specialRequests,
-    };
-  
-    emailjs.send(
-      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_Second!,
-      templateParams,
-      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-    );
+    try {
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_Second;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
- 
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error("EmailJS reservation configuration is incomplete.");
+      }
 
-    setPopup({
-      show: true,
-      type: "success",
-      image:car.image,
-      message:t(popupLabels.popupSuccess, {
-        car: car.name,
+      const days = calculateDays(formData.pickupDate, formData.returnDate);
+      const total = days * car.price;
+      const templateParams = {
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        carName: car.name,
+        carPrice: car.price,
+        carImage: car.image,
+        driverLicense: formData.driverLicense,
+        pickupLocation: formData.pickupLocation,
+        pickupDate: formData.pickupDate,
+        returnDate: formData.returnDate,
         days,
-        total: `$${total}`,
-      }),
-      variant: "reservation",
-    });
+        totalPrice: total,
+        specialRequests: formData.specialRequests,
+      };
 
-    setFormData({
-      fullName: '',
-      email: '',
-      phone: '',
-      pickupLocation: '',
-      pickupDate: '',
-      returnDate: '',
-      driverLicense: '',
-      specialRequests: ''
-    });
-  }catch(error){
-    setPopup({
-      show: true,
-      type: "error",
-      message: popupLabels.errorMessage,
-      variant:"reservation",
-    });
-  }
-  setLoading(false);
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+
+      setPopup({
+        show: true,
+        type: "success",
+        image: car.image,
+        message: t(popupLabels.popupSuccess, {
+          car: car.name,
+          days,
+          total: `$${total}`,
+        }),
+        variant: "reservation",
+      });
+
+      setFormData({
+        fullName: '',
+        email: '',
+        phone: '',
+        pickupLocation: '',
+        pickupDate: '',
+        returnDate: '',
+        driverLicense: '',
+        specialRequests: ''
+      });
+    } catch (error) {
+      console.error("Failed to send reservation email:", error);
+      setPopup({
+        show: true,
+        type: "error",
+        message: popupLabels.errorMessage,
+        variant: "reservation",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
