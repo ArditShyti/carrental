@@ -238,16 +238,16 @@ export default function BlogPage() {
                             <div className="flex items-end justify-between mb-3">
                               <div>
                                 <div className="text-xs text-cyan-300 line-through mb-1">
-                                  Was ${car.price + 50}/day
+                                  Was €{car.price + 50}/day
                                 </div>
                                 <div className="flex items-baseline gap-2">
                                   <span className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent" style={{ fontFamily: 'var(--font-heading)' }}>
-                                    ${car.price}
+                                    €{car.price}
                                   </span>
                                   <span className="text-base text-cyan-200">/day</span>
                                 </div>
                                 <div className="text-xs text-green-400 font-semibold mt-1">
-                                  Save ${50}!
+                                  Save €50!
                                 </div>
                               </div>
                             </div>
@@ -460,16 +460,16 @@ export default function BlogPage() {
                               <div className="flex items-end justify-between mb-4">
                                 <div>
                                   <div className="text-xs text-cyan-300 line-through mb-1">
-                                    Was ${car.price + 50}/day
+                                    Was €{car.price + 50}/day
                                   </div>
                                   <div className="flex items-baseline gap-2">
                                     <span className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent" style={{ fontFamily: 'var(--font-heading)' }}>
-                                      ${car.price}
+                                      €{car.price}
                                     </span>
                                     <span className="text-lg text-cyan-200">/day</span>
                                   </div>
                                   <div className="text-xs text-green-400 font-semibold mt-1">
-                                    Save ${50}!
+                                    Save €50!
                                   </div>
                                 </div>
                               </div>

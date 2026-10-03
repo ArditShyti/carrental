@@ -119,14 +119,14 @@ export default function ReservationPage() {
         email: formData.email,
         phone: formData.phone,
         carName: car.name,
-        carPrice: car.price,
+        carPrice: `€${car.price}`,
         carImage: car.image,
         driverLicense: formData.driverLicense,
         pickupLocation: formData.pickupLocation,
         pickupDate: formData.pickupDate,
         returnDate: formData.returnDate,
         days,
-        totalPrice: total,
+        totalPrice: `€${total}`,
         specialRequests: formData.specialRequests,
       };
 
@@ -139,7 +139,7 @@ export default function ReservationPage() {
         message: t(popupLabels.popupSuccess, {
           car: car.name,
           days,
-          total: `$${total}`,
+          total: `€${total}`,
         }),
         variant: "reservation",
       });
@@ -336,7 +336,7 @@ export default function ReservationPage() {
                       {dict.contactLabels.completeReservation}
                     </h2>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-4xl font-bold text-blue-600">${car.price}</span>
+                      <span className="text-4xl font-bold text-blue-600">€{car.price}</span>
                       <span className="text-gray-600">/{dict.carCardLabels.day}</span>
                     </div>
                   </div>

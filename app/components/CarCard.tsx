@@ -79,7 +79,7 @@ export function CarCard({ id, name, category, image, price, passengers, fuelType
             <div>
               <p className="text-gray-500 text-xs md:text-sm">{dict.carCardLabels.startingAt }</p>
               <p className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                ${price}<span className="text-base md:text-lg text-gray-500">/{dict.carCardLabels.day}</span>
+                €{price}<span className="text-base md:text-lg text-gray-500">/{dict.carCardLabels.day}</span>
               </p>
             </div>
             <motion.div

@@ -189,7 +189,7 @@ export function PopularRentals() {
                       <div className="text-xs text-slate-500 mb-1">{dict.carCardLabels.startingAt}</div>
                       <div className="flex items-baseline gap-2">
                         <span className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-cyan-600 bg-clip-text text-transparent" style={{ fontFamily: 'var(--font-heading)' }}>
-                          ${car.price}
+                          €{car.price}
                         </span>
                         <span className="text-slate-600">/{dict.carCardLabels.day}</span>
                       </div>

@@ -113,7 +113,7 @@ export default async function RootLayout({
                 email: "arditshyti05@gmail.com",
                 contactType: "customer service",
               },
-              priceRange: "$30-$45 per day",
+              priceRange: "€30-€45 per day",
             }),
           }}
         />
